@@ -1,0 +1,45 @@
+# Исполняемые файлы (бинарники)
+*.exe
+*.out
+*.app
+
+# Объектные файлы и библиотеки (промежуточные файлы компиляции)
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.dylib
+
+# Файлы отладки и профилирования
+*.pdb
+*.idb
+*.ilk
+
+# Папки сборки (создаваемые CMake, IDE и вручную)
+build/
+bin/
+Debug/
+Release/
+x64/
+*.vcxproj.*
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# Файлы операционных систем
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Файлы сред разработки (IDE)
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-*
+
+# Автогенерируемые данные и тестовые файлы программы
+reports/
+*.csv
