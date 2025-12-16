@@ -51,8 +51,10 @@ cmake --build .
 ```
 
 ### Запуск:
+```
 ./report_builder     # Linux
 report_builder.exe   # Windows
+```
 
 ## Тестирование
 Система включает два тестовых файла:
