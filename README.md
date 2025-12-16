@@ -12,6 +12,7 @@
 - **Фабричный метод** (виртуальные методы создания)
 
 ## Структура проекта
+```
 report-builder/
 ├── data_types.h // Базовые типы данных (DataValue, DataTable)
 ├── interfaces.h // Интерфейсы всех компонентов
@@ -25,23 +26,29 @@ report-builder/
 ├── test_simple.cpp // Базовые тесты
 ├── final_test.cpp // Полные тесты системы
 └── CMakeLists.txt // Файл для сборки через CMake
-
+```
 
 ## Быстрый старт
 
 ### Сборка с g++:
 # Основная программа
+```
 g++ -std=c++17 -o report_builder main.cpp
+```
 
 # Тесты
+```
 g++ -std=c++17 -o test_simple test_simple.cpp
 g++ -std=c++17 -o final_test final_test.cpp
+```
 
 ### Сборка с CMake:
+```
 mkdir build
 cd build
 cmake ..
 cmake --build .
+```
 
 ### Запуск:
 ./report_builder     # Linux
@@ -53,4 +60,6 @@ test_simple.cpp - проверка основных компонентов
 final_test.cpp - полное тестирование конвейера
 
 Запуск тестов:
+```
 g++ -std=c++17 -o test_simple test_simple.cpp && ./test_simple
+```
