@@ -101,7 +101,9 @@ namespace report_builder {
 
             // Выводим данные
             for (const auto& row : data) {
-                for (const auto& [key, width] : colWidths) {
+                for (const auto& col : colWidths) {
+                    const auto& key   = col.first;
+                    const auto  width = static_cast<int>(col.second);
                     auto it = row.find(key);
                     if (it != row.end()) {
                         std::visit([&](auto&& v) { text << std::left << std::setw(width + 2) << v; }, it->second);
