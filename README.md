@@ -1,67 +1,67 @@
-# report_builder
-# Система построителя отчетов на C++
+# Report Builder System
 
-## Описание
-Система для автоматической генерации различных типов отчетов из структурированных данных. 
-Реализована с использованием паттернов проектирования и современных возможностей C++17.
+Система для автоматической генерации отчетов на C++. Поддерживает гибкий конвейер обработки данных: загрузка из различных источников (CSV, JSON, In-memory), фильтрация, сортировка, агрегация, форматирование (HTML, Plain Text, Markdown) и экспорт (файл, консоль, email). Проект реализован с использованием паттернов проектирования (Abstract Factory, Builder, Strategy) и соответствует Yandex C++ Style Guide.
 
-## Реализованные паттерны
-- **Абстрактная фабрика** (`ReportFactory`, `FinanceReportFactory`, `SalesReportFactory`)
-- **Строитель** (`ReportBuilder`)
-- **Стратегия** (`ExportStrategy` и его реализации)
-- **Фабричный метод** (виртуальные методы создания)
+## Требования к системе
 
-## Структура проекта
+*   **Компилятор C++:** с поддержкой стандарта C++17 или выше (GCC 7+, Clang 5+, MSVC 2017+).
+*   **Система сборки:** CMake 3.14 или выше.
+*   **Для тестирования:** Google Test (gtest) — при сборке с опцией `-DBUILD_TESTS=ON`.
+
+## Быстрый старт (сборка через CMake)
+
+Следующие команды соберут проект в ОС Linux (Ubuntu/Debian), что является одним из требований.
+
+### 1. Клонирование репозитория (если нужно)
 ```
-report-builder/
-├── data_types.h // Базовые типы данных (DataValue, DataTable)
-├── interfaces.h // Интерфейсы всех компонентов
-├── data_providers.h // Источники данных (CSV, JSON, In-memory)
-├── data_processors.h // Обработчики (фильтр, сортировка, агрегация)
-├── formatters.h // Форматировщики (HTML, Plain Text, Markdown)
-├── export_strategies.h // Стратегии экспорта (файл, консоль, email)
-├── report_builder.h // Строитель отчетов (паттерн Builder)
-├── report_factories.h // Фабрики отчетов (паттерн Abstract Factory)
-├── main.cpp // Основная программа с примерами
-├── test_simple.cpp // Базовые тесты
-├── final_test.cpp // Полные тесты системы
-└── CMakeLists.txt // Файл для сборки через CMake
+git clone <your-repo-url>
+cd report_builder
 ```
 
-## Быстрый старт
-
-### Сборка с g++:
-# Основная программа
+### 2. Создание директории для сборки
 ```
-g++ -std=c++17 -o report_builder main.cpp
+mkdir build && cd build
 ```
 
-# Тесты
+### 3. Конфигурация проекта с помощью CMake
 ```
-g++ -std=c++17 -o test_simple test_simple.cpp
-g++ -std=c++17 -o final_test final_test.cpp
-```
-
-### Сборка с CMake:
-```
-mkdir build
-cd build
 cmake ..
-cmake --build .
 ```
 
-### Запуск:
+### 4. Сборка проекта
 ```
-./report_builder     # Linux
-report_builder.exe   # Windows
+make
 ```
 
-## Тестирование
-Система включает два тестовых файла:
-test_simple.cpp - проверка основных компонентов
-final_test.cpp - полное тестирование конвейера
-
-Запуск тестов:
+### 5. Запуск основной программы
 ```
-g++ -std=c++17 -o test_simple test_simple.cpp && ./test_simple
+./src/report_builder
+```
+
+### Сборка с тестами: Для включения и сборки модульных тестов на gtest используйте конфигурацию:
+```
+cmake -DBUILD_TESTS=ON ..
+make
+```
+# Тестирование
+Проект включает модульные тесты, использующие фреймворк Google Test.
+Запуск тестов после сборки:
+```
+# В директории `build/` после сборки с `-DBUILD_TESTS=ON`
+ctest --output-on-failure
+
+# Или можно запустить исполняемые файлы тестов напрямую
+./test/unit_tests
+./test/integration_tests
+```
+
+# Проверка и форматирование стиля кода
+Проект следует Yandex C++ Style Guide. Для автоматической проверки используется clang-format.
+Проверка стиля (без изменений файлов):
+```
+clang-format -n --style=file --dry-run -Werror include/report_builder/*.h src/*.cpp test/*.cpp
+```
+Автоматическое исправление стиля:
+```
+clang-format -i --style=file include/report_builder/*.h src/*.cpp test/*.cpp
 ```
