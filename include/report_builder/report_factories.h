@@ -58,7 +58,7 @@ namespace report_builder {
         }
     };
 
-    // Фабрика отчетов по продажам (оставляем без изменений)
+    // Фабрика отчетов по продажам
     class TSalesReportFactory: public IReportFactory {
     public:
         std::unique_ptr<IDataProvider> CreateDataProvider() override {
