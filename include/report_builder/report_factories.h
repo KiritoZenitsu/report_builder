@@ -24,7 +24,7 @@ namespace report_builder {
     };
 
     // Фабрика финансовых отчетов - ИСПРАВЛЕННАЯ
-    class TFinanceReportFactory : public IReportFactory {
+    class TFinanceReportFactory: public IReportFactory {
     public:
         std::unique_ptr<IDataProvider> CreateDataProvider() override {
             DataTable sampleData = {
@@ -39,14 +39,13 @@ namespace report_builder {
         std::vector<std::unique_ptr<IDataProcessor>> CreateProcessors() override {
             std::vector<std::unique_ptr<IDataProcessor>> processors;
             processors.push_back(std::make_unique<TSortProcessor>("date", true));
-            
+
             // Используем TMultiAggregationProcessor вместо двух отдельных
             std::vector<std::pair<std::string, std::string>> aggregations = {
                 {"revenue", "sum"},
-                {"expenses", "sum"}
-            };
+                {"expenses", "sum"}};
             processors.push_back(std::make_unique<TMultiAggregationProcessor>(aggregations));
-            
+
             return processors;
         }
 
@@ -60,7 +59,7 @@ namespace report_builder {
     };
 
     // Фабрика отчетов по продажам (оставляем без изменений)
-    class TSalesReportFactory : public IReportFactory {
+    class TSalesReportFactory: public IReportFactory {
     public:
         std::unique_ptr<IDataProvider> CreateDataProvider() override {
             DataTable sampleData = {
