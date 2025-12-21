@@ -9,7 +9,6 @@
 
 namespace report_builder {
 
-    // Абстрактная фабрика
     class IReportFactory {
     public:
         virtual ~IReportFactory() = default;
@@ -24,11 +23,10 @@ namespace report_builder {
         }
     };
 
-    // Фабрика финансовых отчетов
-    class TFinanceReportFactory: public IReportFactory {
+    // Фабрика финансовых отчетов - ИСПРАВЛЕННАЯ
+    class TFinanceReportFactory : public IReportFactory {
     public:
         std::unique_ptr<IDataProvider> CreateDataProvider() override {
-            // Создаем тестовые данные
             DataTable sampleData = {
                 {{"date", "2024-01-01"}, {"revenue", 15000}, {"expenses", 8000}},
                 {{"date", "2024-01-02"}, {"revenue", 18000}, {"expenses", 8500}},
@@ -41,9 +39,14 @@ namespace report_builder {
         std::vector<std::unique_ptr<IDataProcessor>> CreateProcessors() override {
             std::vector<std::unique_ptr<IDataProcessor>> processors;
             processors.push_back(std::make_unique<TSortProcessor>("date", true));
-            // AggregationProcessor возвращает только агрегированные данные
-            processors.push_back(std::make_unique<TAggregationProcessor>("revenue", "sum"));
-            processors.push_back(std::make_unique<TAggregationProcessor>("expenses", "sum"));
+            
+            // Используем TMultiAggregationProcessor вместо двух отдельных
+            std::vector<std::pair<std::string, std::string>> aggregations = {
+                {"revenue", "sum"},
+                {"expenses", "sum"}
+            };
+            processors.push_back(std::make_unique<TMultiAggregationProcessor>(aggregations));
+            
             return processors;
         }
 
@@ -56,8 +59,8 @@ namespace report_builder {
         }
     };
 
-    // Фабрика отчетов по продажам
-    class TSalesReportFactory: public IReportFactory {
+    // Фабрика отчетов по продажам (оставляем без изменений)
+    class TSalesReportFactory : public IReportFactory {
     public:
         std::unique_ptr<IDataProvider> CreateDataProvider() override {
             DataTable sampleData = {
@@ -71,9 +74,6 @@ namespace report_builder {
 
         std::vector<std::unique_ptr<IDataProcessor>> CreateProcessors() override {
             std::vector<std::unique_ptr<IDataProcessor>> processors;
-
-            // Фильтр для дорогих товаров
-            // Нужен для демонстрации использования фильтров, к-ые требуются по заданию
             processors.push_back(std::make_unique<TFilterProcessor>(
                 [](const DataRow& row) {
                     auto it = row.find("price");
