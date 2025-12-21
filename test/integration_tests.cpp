@@ -78,7 +78,7 @@ TEST_F(IntegrationTest, SalesReportFactoryCreatesValidReport) {
     EXPECT_TRUE(result.Success);
 }
 
-TEST(IntegrationTest, ReportHandlesMissingFileGracefully) {
+TEST_F(IntegrationTest, ReportHandlesMissingFileGracefully) {
     auto report = TReportBuilder()
         .SetDataSource(std::make_unique<TCsvDataProvider>("non_existent_file.csv"))
         .SetFormatter(std::make_unique<TPlainTextFormatter>())
